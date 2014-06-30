@@ -1,0 +1,34 @@
+.container
+  nav.navbar.navbar-static-top.navbar-inverse
+    .navbar-header
+      a.navbar-brand(href='#') Gulp Angular
+    #bs-example-navbar-collapse-6.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.active
+          a(ng-href='#') Home
+        li
+          a(ng-href='#') About
+        li
+          a(ng-href='#') Contact
+  .jumbotron.text-center
+    h1 &apos;Allo, &apos;Allo!
+    p.lead
+      img(src='images/yeoman.png', alt="I'm Yeoman")
+      br
+      |       Always a pleasure scaffolding your apps.
+    p
+      a.btn.btn-lg.btn-success(ng-href='#') Splendid!
+  .row
+    .col-sm-6.col-md-4(ng-repeat="awesomeThing in awesomeThings | orderBy:'rank'")
+      .thumbnail
+        img.pull-right(ng-src='images/{{awesomeThing.logo}}', alt='{{awesomeThing.title}}')
+        .caption
+          h3 {{awesomeThing.title}}
+          p {{awesomeThing.description}}
+          p
+            a(ng-href='{{awesomeThing.url}}') {{awesomeThing.url}}
+  hr
+  .footer
+    p
+      | With &hearts; from 
+      a(href='https://twitter.com/Swiip') @Swiip
