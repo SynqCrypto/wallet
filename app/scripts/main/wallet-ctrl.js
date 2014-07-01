@@ -8,17 +8,17 @@ var RATES = {
 
 angular.module('wallet')
   .controller('WalletCtrl', function ($scope, $localStorage) {
-    $scope.currency = 'gbp';
-    $scope.total = 1;
-    $scope.lastId = 0;
-
-    $scope.transactions = [];
+    $scope.$storage = $localStorage.$default({
+      currency: 'gbp',
+      lastId: 0,
+      transactions: []
+    });
 
     $scope.newTransaction = function (amount) {
-      $scope.transactions.push({
-        id: ++$scope.lastId,
+      $scope.$storage.transactions.push({
+        id: ++$scope.$storage.lastId,
         amount: amount,
-        date: new Date()
+        date: +new Date()
       });
     }
 
@@ -30,7 +30,7 @@ angular.module('wallet')
 
     $scope.deposit = function () {
       // Normalize amount when depositing.
-      var amount = $scope.depositAmount * RATES[$scope.currency];
+      var amount = $scope.depositAmount * RATES[$scope.$storage.currency];
       $scope.newTransaction(amount);
       $scope.total += amount;
       $scope.depositAmount = '';
@@ -43,7 +43,7 @@ angular.module('wallet')
         return;
       }
       // Normalize amount when withdrawing.
-      var amount = $scope.withdrawAmount * RATES[$scope.currency];
+      var amount = $scope.withdrawAmount * RATES[$scope.$storage.currency];
       $scope.newTransaction(-amount);
       $scope.total -= amount;
       $scope.withdrawAmount = '';
@@ -52,6 +52,10 @@ angular.module('wallet')
   .filter('total', function () {
     return function (transactions) {
       var total = 0;
+      if (!transactions) {
+        // Prevents calling undefined.length on $storage.$reset().
+        return total;
+      }
       for (var i = 0; i < transactions.length; i++) {
         total += transactions[i].amount;
       }
@@ -70,7 +74,7 @@ angular.module('wallet')
   })
   .filter('formatDate', function () {
     return function (date) {
-      return date.toISOString().slice(11, 19);
+      return (new Date(date)).toISOString().slice(11, 19);
     }
   })
   .directive('transactionList', function () {

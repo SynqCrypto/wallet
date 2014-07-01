@@ -7,7 +7,7 @@
     <div id="navbar-collapse" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li><a href="/">Home</a></li>
-        <li><a href="#">Reset</a></li>
+        <li><a href="#" ng-click="$storage.$reset()">Reset</a></li>
         <li><a href="https://github.com/tvararu/wallet/">View source</a></li>
       </ul>
     </div>
@@ -15,25 +15,25 @@
 </nav>
 <div ng-controller="WalletCtrl" class="container wallet-wrapper">
   <div class="btn-group btn-group-justified">
-    <div ng-class="{ active: currency === 'eur' }" ng-click="currency = 'eur'" class="btn btn-default">
+    <div ng-class="{ active: $storage.currency === 'eur' }" ng-click="$storage.currency = 'eur'" class="btn btn-default">
       <div class="fa fa-fw fa-eur"></div>EUR
     </div>
-    <div ng-class="{ active: currency === 'gbp' }" ng-click="currency = 'gbp'" class="btn btn-default">
+    <div ng-class="{ active: $storage.currency === 'gbp' }" ng-click="$storage.currency = 'gbp'" class="btn btn-default">
       <div class="fa fa-fw fa-gbp"></div>GBP
     </div>
-    <div ng-class="{ active: currency === 'usd' }" ng-click="currency = 'usd'" class="btn btn-default">
+    <div ng-class="{ active: $storage.currency === 'usd' }" ng-click="$storage.currency = 'usd'" class="btn btn-default">
       <div class="fa fa-fw fa-usd"></div>USD
     </div>
   </div>
   <h1 class="lead">Total:
-    <div ng-class="currency | icon" class="fa"></div> {{ transactions | total | currency: currency }}
+    <div ng-class="$storage.currency | icon" class="fa"></div> {{ $storage.transactions | total | currency: $storage.currency }}
   </h1>
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">
-            <div ng-class="currency | icon" class="fa"></div>
+            <div ng-class="$storage.currency | icon" class="fa"></div>
           </div>
           <input type="number" min="0" ng-model="depositAmount" placeholder="Deposit" ng-keydown="inputKeydown($event, deposit)" class="form-control"/>
           <div ng-click="deposit()" class="btn input-group-addon">
@@ -46,7 +46,7 @@
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">
-            <div ng-class="currency | icon" class="fa"></div>
+            <div ng-class="$storage.currency | icon" class="fa"></div>
           </div>
           <input type="number" min="0" ng-model="withdrawAmount" placeholder="Withdraw" ng-keydown="inputKeydown($event, withdraw)" class="form-control"/>
           <div ng-click="withdraw()" class="btn input-group-addon">

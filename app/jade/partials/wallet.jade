@@ -11,35 +11,35 @@ nav.navbar.navbar-default(role="navigation")
     .collapse.navbar-collapse(id="navbar-collapse")
       ul.nav.navbar-nav
         li: a(href="/") Home
-        li: a(href="#") Reset
+        li: a(href="#", ng-click="$storage.$reset()") Reset
         li: a(href="https://github.com/tvararu/wallet/") View source
 
 .container.wallet-wrapper(ng-controller="WalletCtrl")
   .btn-group.btn-group-justified
-    .btn.btn-default(ng-class="{ active: currency === 'eur' }", ng-click="currency = 'eur'")
+    .btn.btn-default(ng-class="{ active: $storage.currency === 'eur' }", ng-click="$storage.currency = 'eur'")
       .fa.fa-fw.fa-eur
       | EUR
-    .btn.btn-default(ng-class="{ active: currency === 'gbp' }", ng-click="currency = 'gbp'")
+    .btn.btn-default(ng-class="{ active: $storage.currency === 'gbp' }", ng-click="$storage.currency = 'gbp'")
       .fa.fa-fw.fa-gbp
       | GBP
-    .btn.btn-default(ng-class="{ active: currency === 'usd' }", ng-click="currency = 'usd'")
+    .btn.btn-default(ng-class="{ active: $storage.currency === 'usd' }", ng-click="$storage.currency = 'usd'")
       .fa.fa-fw.fa-usd
       | USD
   h1.lead
     | Total:
-    .fa(ng-class="currency | icon")
-    |  {{ transactions | total | currency: currency }}
+    .fa(ng-class="$storage.currency | icon")
+    |  {{ $storage.transactions | total | currency: $storage.currency }}
   .row
     .col-xs-6
       .form-group
         .input-group
-          .input-group-addon: .fa(ng-class="currency | icon")
+          .input-group-addon: .fa(ng-class="$storage.currency | icon")
           input.form-control(type="number", min="0", ng-model="depositAmount", placeholder="Deposit", ng-keydown="inputKeydown($event, deposit)")
           .btn.input-group-addon(ng-click="deposit()"): .fa.fa-plus.text-success
     .col-xs-6
       .form-group
         .input-group
-          .input-group-addon: .fa(ng-class="currency | icon")
+          .input-group-addon: .fa(ng-class="$storage.currency | icon")
           input.form-control(type="number", min="0", ng-model="withdrawAmount", placeholder="Withdraw", ng-keydown="inputKeydown($event, withdraw)")
           .btn.input-group-addon(ng-click="withdraw()"): .fa.fa-minus.text-danger
 
