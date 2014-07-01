@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('wallet', ['ngRoute'])
+angular.module('wallet', ['ngRoute', 'ngStorage'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

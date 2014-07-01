@@ -7,7 +7,7 @@ var RATES = {
 };
 
 angular.module('wallet')
-  .controller('WalletCtrl', function ($scope) {
+  .controller('WalletCtrl', function ($scope, $localStorage) {
     $scope.currency = 'gbp';
     $scope.total = 1;
     $scope.lastId = 0;
