@@ -1,21 +1,26 @@
-.container
-  nav.navbar.navbar-static-top.navbar-inverse
+nav.navbar.navbar-default(role="navigation")
+  .container
     .navbar-header
-      a.navbar-brand(href='#') Gulp Angular
-    #bs-example-navbar-collapse-6.collapse.navbar-collapse
+      button(type="button", class="navbar-toggle", data-toggle="collapse", data-target="#navbar-collapse")
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href="/") Wallet
+
+    .collapse.navbar-collapse(id="navbar-collapse")
       ul.nav.navbar-nav
-        li.active
-          a(ng-href='#') Home
-        li
-          a(ng-href='#') About
-        li
-          a(ng-href='#') Contact
+        li: a(href="/") Home
+        li: a(href="#") Reset
+        li: a(href="https://github.com/tvararu/wallet/") View source
+
+.container.wallet-wrapper
   .jumbotron.text-center
     h1 &apos;Allo, &apos;Allo!
     p.lead
       img(src='images/yeoman.png', alt="I'm Yeoman")
       br
-      |       Always a pleasure scaffolding your apps.
+      | Always a pleasure scaffolding your apps.
     p
       a.btn.btn-lg.btn-success(ng-href='#') Splendid!
   .row
