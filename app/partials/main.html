@@ -14,6 +14,20 @@
   </div>
 </nav>
 <div ng-controller="WalletCtrl" class="container wallet-wrapper">
+  <div class="btn-group btn-group-justified">
+    <div ng-class="{ active: currency === 'eur' }" ng-click="currency = 'eur'" class="btn btn-default">
+      <div class="fa fa-fw fa-eur"></div>EUR
+    </div>
+    <div ng-class="{ active: currency === 'gbp' }" ng-click="currency = 'gbp'" class="btn btn-default">
+      <div class="fa fa-fw fa-gbp"></div>GBP
+    </div>
+    <div ng-class="{ active: currency === 'usd' }" ng-click="currency = 'usd'" class="btn btn-default">
+      <div class="fa fa-fw fa-usd"></div>USD
+    </div>
+  </div>
+  <h1 class="lead">Total:
+    <div ng-class="currency | icon" class="fa"></div> {{ total | currency: currency }}
+  </h1>
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
@@ -21,7 +35,7 @@
           <div class="input-group-addon">
             <div ng-class="currency | icon" class="fa"></div>
           </div>
-          <input type="number" min="0" ng-model="deposit" placeholder="Deposit" class="form-control"/>
+          <input type="number" min="0" ng-model="depositAmount" placeholder="Deposit" class="form-control"/>
           <div ng-click="deposit()" class="btn input-group-addon">
             <div class="fa fa-plus text-success"></div>
           </div>
@@ -34,7 +48,7 @@
           <div class="input-group-addon">
             <div ng-class="currency | icon" class="fa"></div>
           </div>
-          <input type="number" min="0" ng-model="withdraw" placeholder="Withdraw" class="form-control"/>
+          <input type="number" min="0" ng-model="withdrawAmount" placeholder="Withdraw" class="form-control"/>
           <div ng-click="withdraw()" class="btn input-group-addon">
             <div class="fa fa-minus text-danger"></div>
           </div>
