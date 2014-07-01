@@ -1,0 +1,19 @@
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>no.</th>
+      <th>Amount</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in transactions" ng-class="(item.amount &gt;= 0) ? 'success' : 'danger'">
+      <td>{{ item.id }}</td>
+      <td>
+        <div ng-class="currency | icon" class="fa"></div> {{ item.amount | currency: currency }}
+      </td>
+      <td>{{ item.date | formatDate }}</td>
+    </tr>
+  </tbody>
+</table>

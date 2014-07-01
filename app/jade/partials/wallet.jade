@@ -28,19 +28,19 @@ nav.navbar.navbar-default(role="navigation")
   h1.lead
     | Total:
     .fa(ng-class="currency | icon")
-    |  {{ total | currency: currency }}
+    |  {{ transactions | total | currency: currency }}
   .row
     .col-xs-6
       .form-group
         .input-group
           .input-group-addon: .fa(ng-class="currency | icon")
-          input.form-control(type="number", min="0", ng-model="depositAmount", placeholder="Deposit")
+          input.form-control(type="number", min="0", ng-model="depositAmount", placeholder="Deposit", ng-keydown="inputKeydown($event, deposit)")
           .btn.input-group-addon(ng-click="deposit()"): .fa.fa-plus.text-success
     .col-xs-6
       .form-group
         .input-group
           .input-group-addon: .fa(ng-class="currency | icon")
-          input.form-control(type="number", min="0", ng-model="withdrawAmount", placeholder="Withdraw")
+          input.form-control(type="number", min="0", ng-model="withdrawAmount", placeholder="Withdraw", ng-keydown="inputKeydown($event, withdraw)")
           .btn.input-group-addon(ng-click="withdraw()"): .fa.fa-minus.text-danger
-  {{total}}
 
+  transaction-list

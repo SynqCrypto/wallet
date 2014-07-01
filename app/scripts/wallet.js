@@ -4,7 +4,7 @@ angular.module('wallet', ['ngRoute'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'partials/main.html',
+        templateUrl: 'partials/wallet.html',
         controller: 'WalletCtrl'
       })
       .otherwise({
