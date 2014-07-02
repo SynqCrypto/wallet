@@ -32,6 +32,12 @@ To run the end to end tests:
 $ gulp protractor
 ```
 
+To actually build it for shipping:
+
+```bash
+$ gulp
+```
+
 ## License
 
 [MIT](license.txt).
