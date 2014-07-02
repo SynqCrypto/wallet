@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in $storage.transactions" ng-class="(item.amount &gt;= 0) ? 'success' : 'danger'">
+    <tr ng-repeat="item in $storage.transactions | orderBy: '-date'" ng-class="(item.amount &gt;= 0) ? 'success' : 'danger'">
       <td>{{ item.id }}</td>
       <td>
         <div ng-class="$storage.currency | icon" class="fa"></div> {{ item.amount | currency: $storage.currency }}

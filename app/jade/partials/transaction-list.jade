@@ -5,7 +5,7 @@ table.table.table-bordered
       th Amount
       th Date
   tbody
-    tr(ng-repeat="item in $storage.transactions", ng-class="(item.amount >= 0) ? 'success' : 'danger'")
+    tr(ng-repeat="item in $storage.transactions | orderBy: '-date'", ng-class="(item.amount >= 0) ? 'success' : 'danger'")
       td {{ item.id }}
       td
         .fa(ng-class="$storage.currency | icon")
