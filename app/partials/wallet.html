@@ -25,36 +25,38 @@
       <div class="fa fa-fw fa-usd"></div>USD
     </div>
   </div>
-  <h1 class="lead">Total:
-    <div ng-class="$storage.currency | icon" class="fa"></div> {{ $storage.transactions | total | currency: $storage.currency }}
+  <h1 class="lead">Balance:
+    <div ng-class="$storage.currency | icon" class="fa"></div> {{ $storage.balance | currency: $storage.currency }}
   </h1>
-  <div class="row">
-    <div class="col-xs-6">
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">
-            <div ng-class="$storage.currency | icon" class="fa"></div>
+  <form name="form" novalidate="novalidate">
+    <div class="row">
+      <div class="col-xs-6">
+        <div ng-class="form.depositAmount.$error.float ? 'has-error' : ''" class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <div ng-class="$storage.currency | icon" class="fa"></div>
+            </div>
+            <input type="text" smart-float="smart-float" name="depositAmount" ng-model="depositAmount" placeholder="Deposit" ng-keydown="inputKeydown($event, deposit)" class="form-control"/>
+            <div ng-click="deposit()" class="btn input-group-addon">
+              <div class="fa fa-plus text-success"></div>
+            </div>
           </div>
-          <input type="number" min="0" ng-model="depositAmount" placeholder="Deposit" ng-keydown="inputKeydown($event, deposit)" class="form-control"/>
-          <div ng-click="deposit()" class="btn input-group-addon">
-            <div class="fa fa-plus text-success"></div>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div ng-class="(form.withdrawAmount.$error.float || form.withdrawAmount.$error.overdraft) ? 'has-error' : ''" class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <div ng-class="$storage.currency | icon" class="fa"></div>
+            </div>
+            <input type="text" smart-float="smart-float" no-overdraft="no-overdraft" name="withdrawAmount" ng-model="withdrawAmount" placeholder="Withdraw" ng-keydown="inputKeydown($event, withdraw)" class="form-control"/>
+            <div ng-click="withdraw()" class="btn input-group-addon">
+              <div class="fa fa-minus text-danger"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-xs-6">
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">
-            <div ng-class="$storage.currency | icon" class="fa"></div>
-          </div>
-          <input type="number" min="0" ng-model="withdrawAmount" placeholder="Withdraw" ng-keydown="inputKeydown($event, withdraw)" class="form-control"/>
-          <div ng-click="withdraw()" class="btn input-group-addon">
-            <div class="fa fa-minus text-danger"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </form>
   <transaction-list></transaction-list>
 </div>

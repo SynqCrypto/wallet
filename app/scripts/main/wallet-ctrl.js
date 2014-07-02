@@ -6,12 +6,16 @@ var RATES = {
   eur: 0.80
 };
 
+// Tests for a float with either period or comma, and also for just an empty string.
+var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$|^$/;
+
 angular.module('wallet')
   .controller('WalletCtrl', function ($scope, $localStorage) {
     $scope.$storage = $localStorage.$default({
       currency: 'gbp',
       lastId: 0,
-      transactions: []
+      transactions: [],
+      balance: 0
     });
 
     $scope.newTransaction = function (amount) {
@@ -20,7 +24,7 @@ angular.module('wallet')
         amount: amount,
         date: +new Date()
       });
-    }
+    };
 
     $scope.inputKeydown = function ($event, exec) {
       if ($event.keyCode === 13) { // Enter key.
@@ -29,37 +33,30 @@ angular.module('wallet')
     };
 
     $scope.deposit = function () {
+      if (!$scope.depositAmount) { // If empty string.
+        return;
+      }
+
       // Normalize amount when depositing.
       var amount = $scope.depositAmount * RATES[$scope.$storage.currency];
       $scope.newTransaction(amount);
-      $scope.total += amount;
+      $scope.$storage.balance += amount;
       $scope.depositAmount = '';
     };
 
     $scope.withdraw = function () {
-      if ($scope.total - $scope.withdrawAmount < 0) {
-        // Handle this. 
-        console.log('Not enough funds.');
+      if (!$scope.withdrawAmount) { // If empty string.
+        return;
+      }
+
+      if ($scope.form.withdrawAmount.$error.overdraft) {
         return;
       }
       // Normalize amount when withdrawing.
       var amount = $scope.withdrawAmount * RATES[$scope.$storage.currency];
       $scope.newTransaction(-amount);
-      $scope.total -= amount;
+      $scope.$storage.balance -= amount;
       $scope.withdrawAmount = '';
-    };
-  })
-  .filter('total', function () {
-    return function (transactions) {
-      var total = 0;
-      if (!transactions) {
-        // Prevents calling undefined.length on $storage.$reset().
-        return total;
-      }
-      for (var i = 0; i < transactions.length; i++) {
-        total += transactions[i].amount;
-      }
-      return total;
     };
   })
   .filter('icon', function () {
@@ -75,11 +72,42 @@ angular.module('wallet')
   .filter('formatDate', function () {
     return function (date) {
       return (new Date(date)).toISOString().slice(11, 19);
-    }
+    };
   })
   .directive('transactionList', function () {
     return {
       restrict: 'E',
       templateUrl: 'partials/transaction-list.html'
+    };
+  })
+  .directive('smartFloat', function () {
+    return {
+      require: 'ngModel',
+      link: function (scope, elm, attrs, ctrl) {
+        ctrl.$parsers.unshift(function (viewValue) {
+          if (FLOAT_REGEXP.test(viewValue)) {
+            ctrl.$setValidity('float', true);
+            return parseFloat(viewValue.replace(',', '.'));
+          } else {
+            ctrl.$setValidity('float', false);
+            return undefined;
+          }
+        });
+      }
+    };
+  })
+  .directive('noOverdraft', function () {
+    return {
+      require: 'ngModel',
+      link: function (scope, elm, attrs, ctrl) {
+        ctrl.$parsers.unshift(function (viewValue) {
+          if (viewValue <= scope.$storage.balance) {
+            ctrl.$setValidity('overdraft', true);
+          } else {
+            ctrl.$setValidity('overdraft', false);
+          }
+          return viewValue;
+        });
+      }
     };
   });
