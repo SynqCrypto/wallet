@@ -34,7 +34,7 @@
         <div ng-class="form.depositAmount.$error.float ? 'has-error' : ''" class="form-group">
           <div class="input-group">
             <div class="input-group-addon">
-              <div ng-class="$storage.currency | icon" class="fa"></div>
+              <div ng-class="$storage.currency | icon" class="fa fa-fw"></div>
             </div>
             <input type="text" smart-float="smart-float" name="depositAmount" ng-model="depositAmount" placeholder="Deposit" ng-keydown="inputKeydown($event, deposit)" class="form-control"/>
             <div ng-click="deposit()" class="btn input-group-addon">
@@ -47,7 +47,7 @@
         <div ng-class="(form.withdrawAmount.$error.float || form.withdrawAmount.$error.overdraft) ? 'has-error' : ''" class="form-group">
           <div class="input-group">
             <div class="input-group-addon">
-              <div ng-class="$storage.currency | icon" class="fa"></div>
+              <div ng-class="$storage.currency | icon" class="fa fa-fw"></div>
             </div>
             <input type="text" smart-float="smart-float" no-overdraft="no-overdraft" name="withdrawAmount" ng-model="withdrawAmount" placeholder="Withdraw" ng-keydown="inputKeydown($event, withdraw)" class="form-control"/>
             <div ng-click="withdraw()" class="btn input-group-addon">

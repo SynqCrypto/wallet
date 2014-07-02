@@ -34,13 +34,13 @@ nav.navbar.navbar-default(role="navigation")
       .col-xs-6
         .form-group(ng-class="form.depositAmount.$error.float ? 'has-error' : ''")
           .input-group
-            .input-group-addon: .fa(ng-class="$storage.currency | icon")
+            .input-group-addon: .fa.fa-fw(ng-class="$storage.currency | icon")
             input.form-control(type="text", smart-float, name="depositAmount", ng-model="depositAmount", placeholder="Deposit", ng-keydown="inputKeydown($event, deposit)")
             .btn.input-group-addon(ng-click="deposit()"): .fa.fa-plus.text-success
       .col-xs-6
         .form-group(ng-class="(form.withdrawAmount.$error.float || form.withdrawAmount.$error.overdraft) ? 'has-error' : ''")
           .input-group
-            .input-group-addon: .fa(ng-class="$storage.currency | icon")
+            .input-group-addon: .fa.fa-fw(ng-class="$storage.currency | icon")
             input.form-control(type="text", smart-float, no-overdraft, name="withdrawAmount", ng-model="withdrawAmount", placeholder="Withdraw", ng-keydown="inputKeydown($event, withdraw)")
             .btn.input-group-addon(ng-click="withdraw()"): .fa.fa-minus.text-danger
 
