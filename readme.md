@@ -5,8 +5,7 @@ A quick proof of concept web wallet, built with Angular.
 
 It's built on top of the [generator-gulp-angular](https://github.com/Swiip/generator-gulp-angular) seed app, and as such features all of those commands and doohickeys. In addition, I've added support for the `jade` HTML preprocessing language, and integrated it with the regular `gulp serve` task.
 
-Developing on the project
-===
+### Usage
 
 Make sure that you have `gulp` and `bower` installed, and then run `gulp serve` from the project root:
 
@@ -29,7 +28,6 @@ To run the end to end tests:
 $ gulp protractor
 ```
 
-License
-===
+### License
 
 [MIT](license.txt).
