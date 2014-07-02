@@ -1,7 +1,7 @@
 Wallet
 ===
 
-A quick proof of concept web wallet, built with Angular.
+A quick proof of concept web wallet, built with Angular. Deployed at [http://vararu.org/wallet/](http://vararu.org/wallet/).
 
 It's built on top of the [generator-gulp-angular](https://github.com/Swiip/generator-gulp-angular) seed app, and as such features all of those commands and doohickeys. In addition, I've added support for the `jade` HTML preprocessing language, and integrated it with the regular `gulp serve` task.
 
