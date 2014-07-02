@@ -27,7 +27,7 @@ nav.navbar.navbar-default(role="navigation")
       | USD
   h1.lead
     | Balance:
-    .fa(ng-class="$storage.currency | icon")
+    .fa.fa-fw(ng-class="$storage.currency | icon")
     |  {{ $storage.balance | currency: $storage.currency }}
   form(name="form", novalidate)
     .row
